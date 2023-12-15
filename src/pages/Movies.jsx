@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const Movies = (props) => {
 
     const [Movies, setMovies] = useState([]);
+    const url = 'http://www.omdbapi.com/?i=tt3896198&apikey=c4bb2f90';
 
     const getMovies = async () => {
         try {

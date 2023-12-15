@@ -9,6 +9,8 @@ const Movies = (props) => {
     const getMovies = async () => {
         try {
 
+            const response = await fetch(url)
+
 
         } catch (err){
         console.log(err)

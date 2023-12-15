@@ -1,15 +1,28 @@
+import { config } from "@swc/core/spack";
+import {useState, useEffect} from "react"
+import { useParams } from "react-router-dom";
+
 const MoviesGenre = (props) => {
 
     const {id} = useParams();
     
-    const url = 'http://www.omdbapi.com/?i=tt3896198&apikey=c4bb2f90';
+    const url = 'https://api.themoviedb.org/3/genre/movie/list';
 
     const [movie, setMovie] = useState(null);
 
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
+      }
+    };
+
     const getMovie = async () => {
         try {
-            const response = await fetch("http://www.omdbapi.com/?i=tt3896198&apikey=c4bb2f90")
+            const response = await fetch(url, options)
             const movieData = await response.json();
+            console.log(movieData)
             setMovie(movieData.results);
         }catch(err){
             console.log(err);
@@ -18,7 +31,7 @@ const MoviesGenre = (props) => {
 
 
     useEffect(() => {
-        getMovies
+        getMovie()
       }, []);
 
     return (

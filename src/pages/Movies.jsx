@@ -10,6 +10,10 @@ const Movies = (props) => {
         try {
 
             const response = await fetch(url)
+            const movieData = await response.json()
+            console.log(movieData);
+            setMovies(movieData);
+
 
 
         } catch (err){
@@ -21,7 +25,19 @@ const Movies = (props) => {
         getMovies();
     }, []);
 
-    return
+    return (
+
+        movies.map((movie)=>(
+            <Link to= {'/genre/${movie.id}'}key={movie.id}>
+            
+            
+            
+            </Link>
+    
+        ))
+
+
+    )
 
 }
 

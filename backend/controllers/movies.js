@@ -1,10 +1,50 @@
-const mongoose = require("mongoose");
+const cb = require("../models");
 
-const { DATABASE_URI } = process.env;
+module.exports = {
+  index,
+  create,
+  show,
+  delete: destroy,
+  update,
+};
 
-mongoose.connect(DATABASE_URI);
+async function create(req, res, next) {
+  try {
+    res.status(201).json(await db.Movies.create(req.body));
+  } catch (err) {
+    res.status(400).json({ err: err.message });
+  }
+}
 
-mongoose.connect
-  .on("open", () => console.log("connected to mongo db"))
-  .on("close", () => console.log("disconnected from mongo db"))
-  .on("error", (error) => console.log(error));
+async function index(req, res, next) {
+  try {
+    res.status(200).json(await db.Movies.find({}));
+  } catch (err) {
+    res.status(400).json({ err: err.message });
+  }
+}
+async function show(req, res, next) {
+  try {
+    res.status(200).json(await db.Movies.findById(req.params.id));
+  } catch (err) {
+    res.status(400).json({ err: err.message });
+  }
+}
+async function update(req, res, next) {
+  try {
+    res.status(200).json(
+      await db.Movies.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      })
+    );
+  } catch (err) {
+    res.status(400).json({ err: err.message });
+  }
+}
+async function destroy(req, res, next) {
+  try {
+    res.status(200).json(await db.Movies.findByIdAndDelete(req.params.id));
+  } catch (err) {
+    res.status(400).json({ err: err.message });
+  }
+}
